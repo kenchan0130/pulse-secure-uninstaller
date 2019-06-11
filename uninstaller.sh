@@ -48,8 +48,15 @@ RemoveFilesForAllUsers "/Library/LaunchDaemons/net.pulsesecure.UninstallPulse.pl
 
 
 # Kill processes
-/usr/bin/killall "Junos Pulse"
-/usr/bin/killall "Pulse Secure"
+processList=(
+  "Junos Pulse"
+  "Pulse Secure"
+  "PulseTray"
+  "dsAccessService"
+)
+for process in "${processList[@]}"; do
+  /usr/bin/killall "$process" &> /dev/null
+done
 
 # Remove application supports
 RemoveFilesForAllUsers "/Library/Application Support/Pulse Secure"
